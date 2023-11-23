@@ -123,7 +123,7 @@ app.get("/todos/", async (request, response) => {
         response.send("Invalid Todo Status");
       } else {
         response.status(400);
-        response.status("Invalid Todo Priority");
+        response.send("Invalid Todo Priority");
       }
       break;
     case hasCategoryAndPriorityProperty(request.query):
@@ -141,7 +141,7 @@ app.get("/todos/", async (request, response) => {
         response.send("Invalid Todo Priority");
       } else {
         response.status(400);
-        response.status("Invalid Todo Category");
+        response.send("Invalid Todo Category");
       }
       break;
     case hasCategoryAndStatusProperty(request.query):
@@ -159,7 +159,7 @@ app.get("/todos/", async (request, response) => {
         response.send("Invalid Todo Status");
       } else {
         response.status(400);
-        response.status("Invalid Todo Category");
+        response.send("Invalid Todo Category");
       }
       break;
     case hasCategoryProperty(request.query):
@@ -173,7 +173,7 @@ app.get("/todos/", async (request, response) => {
         response.send(data.map((object) => convertDueDateToResponse(object)));
       } else {
         response.status(400);
-        response.status("Invalid Todo Category");
+        response.send("Invalid Todo Category");
       }
       break;
 
@@ -188,7 +188,7 @@ app.get("/todos/", async (request, response) => {
         response.send(data.map((object) => convertDueDateToResponse(object)));
       } else {
         response.status(400);
-        response.status("Invalid Todo Priority");
+        response.send("Invalid Todo Priority");
       }
       break;
 
@@ -203,7 +203,7 @@ app.get("/todos/", async (request, response) => {
         response.send(data.map((object) => convertDueDateToResponse(object)));
       } else {
         response.status(400);
-        response.status("Invalid Todo Status");
+        response.send("Invalid Todo Status");
       }
       break;
     default:
@@ -309,7 +309,7 @@ app.put("/todos/:todoId/", async (request, response) => {
         response.send("Invalid Todo Status");
       }
       break;
-    case hasCategoryProperty(request.query):
+    case hasCategoryProperty(request.body):
       const updateTodoCategoryQuery = `
           UPDATE todo 
           SET
@@ -324,7 +324,7 @@ app.put("/todos/:todoId/", async (request, response) => {
         response.send("Invalid Todo Category");
       }
       break;
-    case hasPriorityProperty(request.query):
+    case hasPriorityProperty(request.body):
       const updateTodoPriorityQuery = `
           UPDATE todo 
           SET
@@ -339,7 +339,7 @@ app.put("/todos/:todoId/", async (request, response) => {
         response.send("Invalid Todo Priority");
       }
       break;
-    case hasDueDateProperty(request.query):
+    case hasDueDateProperty(request.body):
       const updateTodoDueDateQuery = `
           UPDATE todo 
           SET
